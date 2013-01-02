@@ -20,7 +20,7 @@
 # include <stdio.h>
 #endif
 #include "session.h"
-#include "../data/Init.h"
+#include "../include/Init.h"
 #include "init.h"
 #include "../config.h"
 

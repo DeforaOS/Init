@@ -1,7 +1,8 @@
-TARGETS	= ../data/Init.h Init
+TARGETS	= ../include/Init.h Init
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
+SBINDIR	= $(PREFIX)/sbin
 CC	?= cc
 CPPFLAGSF?=
 CPPFLAGS?=
@@ -17,8 +18,8 @@ INSTALL	?= install
 
 all: $(TARGETS)
 
-../data/Init.h: ../data/Init.interface
-	./appbroker.sh -P "$(PREFIX)" -- "../data/Init.h"
+../include/Init.h: ../data/Init.interface
+	../data/appbroker.sh -P "$(PREFIX)" -- "../include/Init.h"
 
 Init_OBJS = init.o main.o service.o session.o
 Init_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
@@ -27,7 +28,7 @@ Init_LDFLAGS = $(LDFLAGSF) $(LDFLAGS)
 Init: $(Init_OBJS)
 	$(CC) -o Init $(Init_OBJS) $(Init_LDFLAGS)
 
-init.o: init.c session.h init.h ../data/Init.h ../config.h
+init.o: init.c session.h init.h ../include/Init.h ../config.h
 	$(CC) -DPREFIX=\"$(PREFIX)\" $(Init_CFLAGS) -c init.c
 
 main.o: main.c init.h session.h ../config.h
@@ -40,7 +41,7 @@ session.o: session.c
 	$(CC) $(Init_CFLAGS) -c session.c
 
 clean:
-	$(RM) -- $(../data/Init.h_OBJS) $(Init_OBJS)
+	$(RM) -- $(../include/Init.h_OBJS) $(Init_OBJS)
 
 distclean: clean
 	$(RM) -- $(TARGETS)

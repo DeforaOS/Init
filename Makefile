@@ -1,6 +1,6 @@
 PACKAGE	= Init
 VERSION	= 0.0.0
-SUBDIRS	= data src tools
+SUBDIRS	= data include src tools
 RM	?= rm -f
 LN	?= ln -f
 TAR	?= tar -czvf
@@ -23,13 +23,15 @@ dist:
 	@$(TAR) $(PACKAGE)-$(VERSION).tar.gz -- \
 		$(PACKAGE)-$(VERSION)/data/Makefile \
 		$(PACKAGE)-$(VERSION)/data/Init.interface \
+		$(PACKAGE)-$(VERSION)/data/appbroker.sh \
 		$(PACKAGE)-$(VERSION)/data/project.conf \
+		$(PACKAGE)-$(VERSION)/include/Makefile \
+		$(PACKAGE)-$(VERSION)/include/project.conf \
 		$(PACKAGE)-$(VERSION)/src/init.c \
 		$(PACKAGE)-$(VERSION)/src/main.c \
 		$(PACKAGE)-$(VERSION)/src/service.c \
 		$(PACKAGE)-$(VERSION)/src/session.c \
 		$(PACKAGE)-$(VERSION)/src/Makefile \
-		$(PACKAGE)-$(VERSION)/src/appbroker.sh \
 		$(PACKAGE)-$(VERSION)/src/common.h \
 		$(PACKAGE)-$(VERSION)/src/init.h \
 		$(PACKAGE)-$(VERSION)/src/service.h \
