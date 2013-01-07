@@ -14,6 +14,7 @@ Init.h: ../data/Init.interface
 
 clean:
 	$(RM) -- $(Init.h_OBJS)
+	../data/appbroker.sh -c -P "$(PREFIX)" -- "Init.h"
 
 distclean: clean
 	$(RM) -- $(TARGETS)
