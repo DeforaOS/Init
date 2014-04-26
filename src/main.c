@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2009 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2008-2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS System Init */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,14 +26,14 @@
 
 
 /* private */
-static int _init(AppServerOptions options, char const * profile);
+static int _init(char const * profile);
 static int _usage(void);
 
 
 /* functions */
 /* private */
 /* init */
-static int _init(AppServerOptions options, char const * profile)
+static int _init(char const * profile)
 {
 	int ret = 0;
 	Init * init;
@@ -41,7 +41,7 @@ static int _init(AppServerOptions options, char const * profile)
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s(\"%s\")\n", __func__, profile);
 #endif
-	if((init = init_new(options, profile)) == NULL)
+	if((init = init_new(profile)) == NULL)
 		return error_print(PACKAGE);
 	for(;;)
 	{
@@ -72,21 +72,14 @@ int main(int argc, char * argv[])
 {
 	int ret;
 	int o;
-	AppServerOptions options = ASO_LOCAL;
 	char const * profile = NULL;
 	char * shell[] = { "/bin/sh", NULL };
 
-	while((o = getopt(argc, argv, "LRP:s")) != -1)
+	while((o = getopt(argc, argv, "P:s")) != -1)
 		switch(o)
 		{
-			case 'L':
-				options = ASO_LOCAL;
-				break;
 			case 'P':
 				profile = optarg;
-				break;
-			case 'R':
-				options = ASO_REMOTE;
 				break;
 			case 's':
 				profile = "single-user";
@@ -94,7 +87,7 @@ int main(int argc, char * argv[])
 			default:
 				return _usage();
 		}
-	if((ret = _init(options, profile) != 0) && getpid() == 1)
+	if((ret = _init(profile) != 0) && getpid() == 1)
 	{
 		fputs(PACKAGE ": Spawning a shell\n", stderr);
 		execve(shell[0], shell, NULL);

@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2008 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2008-2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS System Init */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ typedef struct _Init Init;
 
 
 /* functions */
-Init * init_new(AppServerOptions options, char const * profile);
+Init * init_new(char const * profile);
 void init_delete(Init * init);
 
 /* AppInterface */

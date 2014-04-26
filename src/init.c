@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2010 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2005-2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS System Init */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ struct _Init
 /* public */
 /* functions */
 /* init_new */
-Init * init_new(AppServerOptions options, char const * profile)
+Init * init_new(char const * profile)
 {
 	Init * init;
 
@@ -57,7 +57,7 @@ Init * init_new(AppServerOptions options, char const * profile)
 		? session_new("Init", profile, init->event) : NULL;
 	/* FIXME ASO_LOCAL or ASO_REMOTE comes from the configuration file */
 	init->appserver = (init->event != NULL)
-		? appserver_new_event("Init", options, init->event) : NULL;
+		? appserver_new_event("Init", NULL, init->event) : NULL;
 	/* FIXME handle signals (Event class?) */
 	/* error handling */
 	if(init->event == NULL || init->appserver == NULL)
