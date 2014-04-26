@@ -83,10 +83,10 @@ void init_delete(Init * init)
 
 /* AppInterface */
 /* init_get_profile */
-int Init_get_profile(String ** profile)
+int Init_get_profile(AppServerClient * client, String ** profile)
 {
 #ifdef DEBUG
-	fprintf(stderr, "DEBUG: %s(%p)\n", __func__, (void*)profile);
+	fprintf(stderr, "DEBUG: %s(%p)\n", __func__, (void *)profile);
 #endif
 	/* FIXME implement */
 	return -1;
@@ -94,7 +94,7 @@ int Init_get_profile(String ** profile)
 
 
 /* init_get_session */
-int Init_get_session(String const * session)
+int Init_get_session(AppServerClient * client, String const * session)
 {
 	int ret = -1;
 	String * filename;
@@ -127,7 +127,7 @@ int Init_get_session(String const * session)
 
 
 /* init_login */
-uint16_t Init_login(String const * username)
+uint16_t Init_login(AppServerClient * client, String const * username)
 {
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s(\"%s\")\n", __func__, username);
@@ -138,7 +138,7 @@ uint16_t Init_login(String const * username)
 
 
 /* init_logout */
-uint16_t Init_logout(void)
+uint16_t Init_logout(AppServerClient * client)
 {
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s()\n", __func__);
@@ -149,7 +149,8 @@ uint16_t Init_logout(void)
 
 
 /* init_register */
-uint16_t Init_register(String const * service, uint16_t port)
+uint16_t Init_register(AppServerClient * client, String const * service,
+		uint16_t port)
 {
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s(\"%s\", %d)\n", __func__, service, port);
@@ -159,7 +160,7 @@ uint16_t Init_register(String const * service, uint16_t port)
 
 
 /* init_set_profile */
-int32_t Init_set_profile(String const * profile)
+int32_t Init_set_profile(AppServerClient * client, String const * profile)
 {
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s(\"%s\")\n", __func__, profile);
