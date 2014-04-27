@@ -55,7 +55,6 @@ Init * init_new(char const * profile)
 	init->event = event_new();
 	init->session = (init->event != NULL)
 		? session_new("Init", profile, init->event) : NULL;
-	/* FIXME ASO_LOCAL or ASO_REMOTE comes from the configuration file */
 	init->appserver = (init->event != NULL)
 		? appserver_new_event(0, "Init", NULL, init->event) : NULL;
 	/* FIXME handle signals (Event class?) */
