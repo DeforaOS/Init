@@ -1,4 +1,4 @@
-TARGETS	= ../include/Init.h Init
+TARGETS	= ../include/Init.h ../include/Session.h Init
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
@@ -21,6 +21,9 @@ all: $(TARGETS)
 ../include/Init.h: ../data/Init.interface
 	../data/appbroker.sh -P "$(PREFIX)" -- "../include/Init.h"
 
+../include/Session.h: ../data/Session.interface
+	../data/appbroker.sh -P "$(PREFIX)" -- "../include/Session.h"
+
 Init_OBJS = init.o main.o service.o session.o
 Init_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 Init_LDFLAGS = $(LDFLAGSF) $(LDFLAGS)
@@ -41,7 +44,7 @@ session.o: session.c
 	$(CC) $(Init_CFLAGS) -c session.c
 
 clean:
-	$(RM) -- $(../include/Init.h_OBJS) $(Init_OBJS)
+	$(RM) -- $(../include/Init.h_OBJS) $(../include/Session.h_OBJS) $(Init_OBJS)
 
 distclean: clean
 	$(RM) -- $(TARGETS)

@@ -1,6 +1,5 @@
 #$Id$
 service=Init
-port=4241
 
 [call::login]
 ret=UINT16

@@ -1,0 +1,25 @@
+#$Id$
+service=Session
+
+#Session::list
+#	returns	an array of the AppServers registered
+#[call::list]
+#FIXME arrays are not implemented yet
+#ret=STRING[]
+
+#Session::lookup
+#	arg1	the name of an AppServer to reach
+#	returns	the AppProtocol name where to locate the AppServer
+[call::lookup]
+ret=STRING
+arg1=STRING
+
+#Session::register
+#	arg1	the name of an AppServer to register
+#	arg2	the AppProtocol name where to locate the AppServer
+#	returns	TRUE if successful, FALSE otherwise
+[call::register]
+#XXX return a STRING containing the error instead?
+ret=BOOL
+arg1=STRING
+arg2=STRING
