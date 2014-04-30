@@ -20,6 +20,10 @@
 #include "init.h"
 #include "../config.h"
 
+#ifndef PROGNAME
+# define PROGNAME	PACKAGE
+#endif
+
 /* hack to define the interface without colliding with the Init class */
 /* FIXME see later if we really need it
 #include "init.c" */
@@ -58,10 +62,9 @@ static int _init(char const * profile)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PACKAGE " [-L|-R] -s [-P profile]\n"
-"  -L	Only bind to the local machine\n"
+	fputs("Usage: " PROGNAME " [-P profile]\n"
+"       " PROGNAME " -s\n"
 "  -P	Profile to load\n"
-"  -R	Allow remote connections\n"
 "  -s	Force the single-user profile\n", stderr);
 	return 1;
 }
