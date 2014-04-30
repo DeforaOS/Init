@@ -24,7 +24,7 @@
 
 /* Init */
 /* types */
-typedef struct _Init Init;
+typedef struct _App Init;
 
 
 /* functions */

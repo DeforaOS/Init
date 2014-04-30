@@ -8,15 +8,6 @@ arg1=STRING,username
 [call::logout]
 ret=UINT16
 
-[call::register]
-ret=UINT16
-arg1=STRING
-arg2=UINT16
-
-[call::get_session]
-ret=INT32
-arg1=STRING
-
 [call::get_profile]
 ret=INT32
 arg1=STRING_OUT,profile
