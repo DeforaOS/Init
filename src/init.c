@@ -25,7 +25,10 @@
 #include "../config.h"
 
 #ifndef PREFIX
-# define PREFIX "/usr/local"
+# define PREFIX		"/usr/local"
+#endif
+#ifndef SYSCONFDIR
+# define SYSCONFDIR	PREFIX "/etc"
 #endif
 
 
@@ -107,7 +110,7 @@ int Init_get_session(AppServerClient * client, String const * session)
 	if(string_compare(session, "Init") == 0)
 		return 0;
 	/* FIXME look in registered sessions instead */
-	if((filename = string_new_append(PREFIX "/etc/AppInterface/", session,
+	if((filename = string_new_append(SYSCONFDIR "/AppInterface/", session,
 					".interface", NULL)) == NULL)
 		return -1;
 	if((config = config_new()) != NULL
