@@ -45,6 +45,8 @@ session.o: session.c
 
 clean:
 	$(RM) -- $(../include/Init.h_OBJS) $(../include/Session.h_OBJS) $(Init_OBJS)
+	../data/appbroker.sh -c -P "$(PREFIX)" -- "../include/Init.h"
+	../data/appbroker.sh -c -P "$(PREFIX)" -- "../include/Session.h"
 
 distclean: clean
 	$(RM) -- $(TARGETS)
