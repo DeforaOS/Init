@@ -1,4 +1,5 @@
-TARGETS	= Init.h
+TARGETS	= $(OBJDIR)Init.h
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 RM	= rm -f
@@ -9,8 +10,8 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-Init.h: ../data/Init.interface
-	../data/appbroker.sh -P "$(PREFIX)" -- "Init.h"
+$(OBJDIR)Init.h: ../data/Init.interface
+	../data/appbroker.sh -P "$(PREFIX)" -- "$(OBJDIR)Init.h"
 
 clean:
 	$(RM) -- $(Init.h_OBJS)

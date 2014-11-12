@@ -1,4 +1,5 @@
-TARGETS	= ../include/Init.h ../include/Session.h Init
+TARGETS	= $(OBJDIR)../include/Init.h $(OBJDIR)../include/Session.h $(OBJDIR)Init
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
@@ -18,30 +19,30 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-../include/Init.h: ../data/Init.interface
-	../data/appbroker.sh -P "$(PREFIX)" -- "../include/Init.h"
+$(OBJDIR)../include/Init.h: ../data/Init.interface
+	../data/appbroker.sh -P "$(PREFIX)" -- "$(OBJDIR)../include/Init.h"
 
-../include/Session.h: ../data/Session.interface
-	../data/appbroker.sh -P "$(PREFIX)" -- "../include/Session.h"
+$(OBJDIR)../include/Session.h: ../data/Session.interface
+	../data/appbroker.sh -P "$(PREFIX)" -- "$(OBJDIR)../include/Session.h"
 
-Init_OBJS = init.o main.o service.o session.o
+Init_OBJS = $(OBJDIR)init.o $(OBJDIR)main.o $(OBJDIR)service.o $(OBJDIR)session.o
 Init_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 Init_LDFLAGS = $(LDFLAGSF) $(LDFLAGS)
 
-Init: $(Init_OBJS)
-	$(CC) -o Init $(Init_OBJS) $(Init_LDFLAGS)
+$(OBJDIR)Init: $(Init_OBJS)
+	$(CC) -o $(OBJDIR)Init $(Init_OBJS) $(Init_LDFLAGS)
 
-init.o: init.c session.h init.h ../include/Init.h ../config.h
-	$(CC) -DPREFIX=\"$(PREFIX)\" $(Init_CFLAGS) -c init.c
+$(OBJDIR)init.o: init.c session.h init.h ../include/Init.h ../config.h
+	$(CC) -DPREFIX=\"$(PREFIX)\" $(Init_CFLAGS) -o $(OBJDIR)init.o -c init.c
 
-main.o: main.c init.h session.h ../config.h
-	$(CC) $(Init_CFLAGS) -c main.c
+$(OBJDIR)main.o: main.c init.h session.h ../config.h
+	$(CC) $(Init_CFLAGS) -o $(OBJDIR)main.o -c main.c
 
-service.o: service.c common.h service.h
-	$(CC) $(Init_CFLAGS) -c service.c
+$(OBJDIR)service.o: service.c common.h service.h
+	$(CC) $(Init_CFLAGS) -o $(OBJDIR)service.o -c service.c
 
-session.o: session.c
-	$(CC) $(Init_CFLAGS) -c session.c
+$(OBJDIR)session.o: session.c
+	$(CC) $(Init_CFLAGS) -o $(OBJDIR)session.o -c session.c
 
 clean:
 	$(RM) -- $(../include/Init.h_OBJS) $(../include/Session.h_OBJS) $(Init_OBJS)
@@ -53,7 +54,7 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 Init $(DESTDIR)$(BINDIR)/Init
+	$(INSTALL) -m 0755 $(OBJDIR)Init $(DESTDIR)$(BINDIR)/Init
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/Init
