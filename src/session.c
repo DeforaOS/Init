@@ -41,7 +41,7 @@ struct _Session
 /* prototypes */
 /* private */
 /* accessors */
-static String ** _session_get_config_services(Session * session);
+static StringArray * _session_get_config_services(Session * session);
 static String * _session_get_filename(Session * session);
 
 /* useful */
@@ -151,7 +151,7 @@ int session_stop(Session * session)
 
 /* private */
 /* session_get_config_services */
-static String ** _session_get_config_services(Session * session)
+static StringArray * _session_get_config_services(Session * session)
 {
 	String const * profile;
 	String const * services;
@@ -194,14 +194,14 @@ static String * _session_get_filename(Session * session)
 
 
 /* useful */
+static void _load_service_foreach(void * value, void * data);
 static int _load_service(Session * session, String const * service);
 
 static int _session_load(Session * session)
 {
 	int ret;
 	String * filename;
-	String ** services;
-	String ** p;
+	StringArray * services;
 
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s()\n", __func__);
@@ -223,14 +223,19 @@ static int _session_load(Session * session)
 	if((services = _session_get_config_services(session)) == NULL)
 		return -1;
 	/* add the services */
-	for(p = services; *p != NULL; p++)
-	{
-		if(_load_service(session, *p) != 0)
-			error_print(PACKAGE);
-		string_delete(*p);
-	}
-	free(services);
+	array_foreach(services, _load_service_foreach, session);
+	array_foreach(services, (ArrayForeach)string_delete, NULL);
+	array_delete(services);
 	return 0;
+}
+
+static void _load_service_foreach(void * value, void * data)
+{
+	String * service = value;
+	Session * session = data;
+
+	if(_load_service(session, service) != 0)
+		error_print(PACKAGE);
 }
 
 static int _load_service(Session * session, String const * service)
